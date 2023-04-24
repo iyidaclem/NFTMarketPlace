@@ -15,7 +15,11 @@ module.exports = {
   assetPrefix: isProd ? '/' : '',
   reactStrictMode: true,
   images: {
+<<<<<<< HEAD
     domains: ['ipfs.io', 'bnug.xyz'],
+=======
+    domains: ['ipfs.io'],
+>>>>>>> 0e21686fb1ee75dcc28d3c2630d468aaa3c203a6
     unoptimized: false,
   },
   env: {

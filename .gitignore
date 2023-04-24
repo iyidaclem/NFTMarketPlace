@@ -27,4 +27,7 @@ artifacts
 
 #vscode
 .bnug_infura_keys
+<<<<<<< HEAD
 .next.zip
+=======
+>>>>>>> 0e21686fb1ee75dcc28d3c2630d468aaa3c203a6
