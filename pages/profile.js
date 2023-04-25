@@ -117,7 +117,7 @@ const Profile = () => {
                   type="button"
                   className="nft-gradient h-full text-sm minlg:text-lg py-3 px-6 minlg:py-4 minlg:px-8 font-poppins font-semibold text-white rounded-md -ml-10"
                   onClick={() => {
-                    navigator.clipboard.writeText(`${document.referrer}/?ref=${address}`);
+                    navigator.clipboard.writeText(`${window.top.location.href}/?ref=${address}`);
                     setCopied(!copied);
                   }}
                 >
