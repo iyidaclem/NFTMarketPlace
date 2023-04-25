@@ -24,6 +24,7 @@ const Profile = () => {
   const [copied, setCopied] = useState(false);
   const { address, isConnected } = useAccount();
   useEffect(() => {
+    console.log(window.top.location.href);
     if (!isConnected) window.location.href = '/';
     fetchMyNFTsOrCreatedNFTs('fetchMyNFTs')
       .then((items) => {
