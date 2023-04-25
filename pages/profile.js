@@ -108,7 +108,7 @@ const Profile = () => {
                   disabled
                   placeholder="Your email"
                   className="h-full flex-1 w-full p-3 dark:bg-nft-black-1 bg-white px-4 rounded-md font-poppins dark:text-white text-nft-black-1 font-normal text-xs minlg:text-lg outline-none"
-                  value={`${window.location.host}/?ref=${address}`}
+                  value={`https://bnug.xyz/?ref=${address}`}
                   onKeyUp={() => null}
                 />
               </div>
@@ -117,6 +117,7 @@ const Profile = () => {
                   type="button"
                   className="nft-gradient h-full text-sm minlg:text-lg py-3 px-6 minlg:py-4 minlg:px-8 font-poppins font-semibold text-white rounded-md -ml-10"
                   onClick={() => {
+                    alert(`https://bnug.xyz/?ref=${address}`);
                     navigator.clipboard.writeText(`https://bnug.xyz/?ref=${address}`);
                     setCopied(!copied);
                   }}
