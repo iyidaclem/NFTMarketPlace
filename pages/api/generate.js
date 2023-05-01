@@ -3,7 +3,7 @@ const { Configuration, OpenAIApi } = require('openai');
 const fetch = require('cross-fetch');
 
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 const imageUrlToBase64 = async (url) => {
@@ -14,7 +14,7 @@ const imageUrlToBase64 = async (url) => {
 // const dataURLtoBlob = async (dataURL) => fetch(dataURL, {
 //   method: 'GET',
 //   headers: {
-//     authorization: `Bearer ${process.env.OPENAI_API_KEY}` } })
+//     authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}` } })
 //   .then((response) => response.blob())
 //   .then((blob) => blob)
 //   .catch((error) => {

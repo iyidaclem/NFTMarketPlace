@@ -15,8 +15,8 @@ const CreateItem = () => {
   const { createSale, isLoadingNFT } = useContext(NFTContext);
   const [fileUrl, setFileUrl] = useState(null);
   const { theme } = useTheme();
-  const projectId = process.env.REACT_APP_PROJECT_ID;
-  const projectSecretKey = process.env.REACT_APP_PROJECT_KEY;
+  const projectId = process.env.NEXT_PUBLIC_INFURA_APP_PROJECT_ID;
+  const projectSecretKey = process.env.NEXT_PUBLIC_INFURA_APP_PROJECT_KEY;
   const authorization = `Basic ${btoa(`${projectId}:${projectSecretKey}`)}`;
   const [uploading, setUploading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -150,7 +150,7 @@ const CreateItem = () => {
                   />
                 </div>
                 <div className="w-full flex flex-row justify-center p-5">
-                  {useAI && <a download={fileUrl} href={fileUrl}> <Button btnName="Save Image" /> </a>}
+                  {useAI && <a download="img.png" href={fileUrl} target='_blank'> Donwload</a>}
                 </div>
               </aside>
             )}

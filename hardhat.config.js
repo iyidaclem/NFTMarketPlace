@@ -41,18 +41,10 @@ module.exports = {
   etherscan: {
     apiKey: {
       alfajores: `${celoscanApiKey}`,
+      celo: `${celoscanApiKey}`,
     },
-    customChains: [
-      {
-        network: 'alfajores',
-        chainId: 44787,
-        urls: {
-          apiURL: 'https://celoscan.io/apis',
-          browserURL: 'https://alfajores.celoscan.io/',
-        },
-      },
-    ],
-    url: 'https://alfajores.celoscan.io/',
+    // url: 'https://alfajores.celoscan.io/',
+    url: 'https://celoscan.io/',
   },
   // solidity: '0.8.4',
 

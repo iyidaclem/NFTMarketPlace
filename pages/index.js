@@ -59,7 +59,6 @@ const Home = () => {
     const ref = urlParams.get('ref');
     if (ref) localStorage.setItem('ref', ref);
   }, [activeSelect]);
-  console.log(window.location.href);
   const onHandleSearch = (value) => {
     const filteredNfts = nfts.filter(({ name }) => name.toLowerCase().includes(value.toLowerCase()));
 

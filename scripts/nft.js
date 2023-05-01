@@ -6,7 +6,7 @@ const tokenAddress = fs.readFileSync('deployed_token_address').toString().trim()
 async function main() {
   const NFTMarketplace = await ethers.getContractFactory('NFTMarketplace');
   const nftMarketplace = await upgrades.deployProxy(NFTMarketplace, [tokenAddress], {
-    initializer: 'intialize',
+    initializer: 'initialize',
   });
   await nftMarketplace.deployed();
 

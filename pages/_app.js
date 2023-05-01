@@ -17,11 +17,7 @@ import { Footer, Navbar } from '../components';
 import '../styles/globals.css';
 import '../styles/generate.css';
 
-if (!process.env.w3modalProjectId) {
-  throw new Error('You need to provide w3modalProjectId env variable');
-}
-const projectId = process.env.w3modalProjectId;
-
+const projectId = process.env.NEXT_PUBLIC_w3modalProjectId;
 // 2. Configure wagmi client
 const chains = [
   celoAlfajores,

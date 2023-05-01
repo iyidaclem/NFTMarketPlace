@@ -31,7 +31,6 @@ const Generate = ({ uploadToInfura }) => {
       const url = `data:image/png;base64,${data.data}`;
       const img = await fetch(url)
         .then(async (res) => res.blob());
-      console.log(img);
       await uploadToInfura(img);
       setIsLoading(false);
     } catch (error) {

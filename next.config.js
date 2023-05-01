@@ -19,12 +19,10 @@ module.exports = {
     unoptimized: false,
   },
   env: {
-    REACT_APP_PROJECT_ID: process.env.REACT_APP_PROJECT_ID,
-    REACT_APP_PROJECT_KEY: process.env.REACT_APP_PROJECT_KEY,
-    MAILCHIMP_API_KEY: process.env.MAILCHIMP_API_KEY,
-    MAILCHIMP_LIST_ID: process.env.MAILCHIMP_LIST_ID,
+    NEXT_PUBLIC_INFURA_APP_PROJECT_ID: process.env.NEXT_PUBLIC_INFURA_APP_PROJECT_ID,
+    NEXT_PUBLIC_INFURA_APP_PROJECT_KEY: process.env.NEXT_PUBLIC_INFURA_APP_PROJECT_KEY,
     NEXT_PUBLIC_MAILCHIMP_URL: process.env.NEXT_PUBLIC_MAILCHIMP_URL,
-    w3modalProjectId: process.env.w3modalProjectId,
-    OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+    NEXT_PUBLIC_w3modalProjectId: process.env.NEXT_PUBLIC_w3modalProjectId,
+    NEXT_PUBLIC_OPENAI_API_KEY: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
   },
 };
