@@ -150,7 +150,7 @@ const CreateItem = () => {
                   />
                 </div>
                 <div className="w-full flex flex-row justify-center p-5">
-                  {useAI && <a download="img.png" href={fileUrl} target='_blank'> Donwload</a>}
+                  {useAI && <a download="img.png" href={fileUrl} target='_blank'> Download</a>}
                 </div>
               </aside>
             )}

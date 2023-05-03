@@ -114,7 +114,7 @@ const Home = () => {
         <Banner
           name={(
             <> <span className="md:text-4xl sm:text-2xl xs:text-xl">Négritude! ...powered by Celo!</span> <br />
-              <span className="text-xl">NFT Marketplace for crypto artists and creators.</span>
+              <span className="text-xl">BNUGDAO NFT Marketplace for crypto artists and creators.</span>
             </>
           )}
           childStyles="md:text-4xl sm:text-2xl xs:text-xl text-left"
