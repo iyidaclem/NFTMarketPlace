@@ -8,7 +8,7 @@ const mnemonic = fs.readFileSync('.mnemonic').toString().trim();
 const celoscanApiKey = fs.readFileSync('.celoscan_api_key').toString().trim();
 
 module.exports = {
-  defaultNetwork: 'alfajores',
+  defaultNetwork: 'localhost',
   networks: {
     localhost: {
       url: 'http://127.0.0.1:8545',
