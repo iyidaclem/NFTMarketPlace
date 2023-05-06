@@ -10,7 +10,6 @@ async function main() {
 
   console.log('Event deployed to:', bNUGEvent.address);
   fs.writeFileSync('deployed_event_address', `${bNUGEvent.address}`, { encoding: 'utf-8' });
-
 }
 
 main()

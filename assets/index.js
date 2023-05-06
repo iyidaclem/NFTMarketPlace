@@ -40,6 +40,9 @@ import bnugreward from './bnugreward.png';
 import facebook from './facebook.png';
 import email from './email.png';
 import celo from './celo.png';
+import general from './general.png';
+import vip from './vip.png';
+import devs from './devs.png';
 
 export default {
   heartOutline,
@@ -84,4 +87,7 @@ export default {
   facebook,
   email,
   celo,
+  general,
+  vip,
+  devs
 };

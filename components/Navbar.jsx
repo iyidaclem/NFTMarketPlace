@@ -26,6 +26,8 @@ const MenuItems = ({ isMobile, active, setActive, setIsOpen, isOpen }) => {
       case 3:
         return '/create-nft';
       case 4:
+        return '/ticket';
+      case 5:
         return '/profile';
       default:
         return '/';
@@ -44,7 +46,7 @@ const MenuItems = ({ isMobile, active, setActive, setIsOpen, isOpen }) => {
 
   return (
     <ul className={`list-none flexCenter flex-row ${isMobile && 'flex-col h-full'}`}>
-      {['Explore NFTs', 'Listed NFTs', 'Swap Token', 'Create NFT', 'Profile'].map((item, i) => (
+      {['Explore NFTs', 'Listed NFTs', 'Swap Token', 'Create NFT', "Event Ticket", 'Profile'].map((item, i) => (
         <li
           key={i}
           onClick={() => {
@@ -54,11 +56,11 @@ const MenuItems = ({ isMobile, active, setActive, setIsOpen, isOpen }) => {
           }}
           className={`flex flex-row items-center font-poppins font-semibold text-base dark:hover:text-white hover:text-nft-dark mx-3
           ${(i === 4 || i === 3 || i === 2) && !isConnected && 'hidden'
-          }
+            }
           ${item === 'Create NFT' && !isOpen && 'hidden'}
           ${active === item
-            ? 'dark:text-white text-nft-black-1'
-            : 'dark:text-nft-gray-3 text-nft-gray-2'} 
+              ? 'dark:text-white text-nft-black-1'
+              : 'dark:text-nft-gray-3 text-nft-gray-2'} 
           ${isMobile && 'my-5 text-xl'}`}
         >
           <Link href={generateLink(i)}>{item === 'Profile' ? (
