@@ -7,42 +7,81 @@ import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155SupplyUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-contract BNUGEvent is Initializable, ERC1155Upgradeable, OwnableUpgradeable, PausableUpgradeable, ERC1155SupplyUpgradeable {
+contract BNUGEvent is
+    Initializable,
+    ERC1155Upgradeable,
+    OwnableUpgradeable,
+    PausableUpgradeable,
+    ERC1155SupplyUpgradeable
+{
     uint256 public constant GENERAL = 0;
     uint256 public constant VIP = 1;
     uint256 public constant DEVS = 2;
-    uint256 public mintingFee = 0.03 ether;
+    uint256 public general_fee;
+    uint256 public vip_fee;
+    uint256 public devs_fee;
+    string public name;
+    string public symbol;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();
     }
 
-    function initialize() initializer public {
-        __ERC1155_init("https://ipfs.io/ipfs/QmS97jahBSjQJiRFgbzafAUBEfkzAr41ff3thgeDir1oy4");
+    function initialize() public initializer {
+        __ERC1155_init(
+            "https://ipfs.io/ipfs/QmS97jahBSjQJiRFgbzafAUBEfkzAr41ff3thgeDir1oy4"
+        );
         __Ownable_init();
         __Pausable_init();
         __ERC1155Supply_init();
+        general_fee = 2 ether;
+        vip_fee = 50 ether;
+        devs_fee = 30 ether;
+        name = "BNUGDAO EVENT";
+        symbol = "BNUGDAO EVENT";
     }
 
     function setURI(string memory newuri) public onlyOwner {
         _setURI(newuri);
     }
 
-    function setMintingFee(uint256 new_fee) public onlyOwner {
-        mintingFee = new_fee;
+    function setMintingFee(uint8 id, uint256 new_fee) public onlyOwner {
+        require(id >= 0 && id <= 2, "Invalid id");
+
+        if (id == 0) {
+            general_fee = new_fee;
+        } else if (id == 1) {
+            vip_fee = new_fee;
+        } else {
+            devs_fee = new_fee;
+        }
     }
 
-    function distributeFee(address payable _recipient, uint256 _amount) public onlyOwner
-    {
-     require(address(this).balance >= _amount, "Insufficient balance");
-    _recipient.transfer(_amount);   
+    function getFee(uint8 id) public view returns (uint256) {
+        require(id >= 0 && id <= 2, "Invalid id");
+
+        if (id == 0) {
+            return general_fee;
+        } else if (id == 1) {
+            return vip_fee;
+        } else {
+            return devs_fee;
+        }
     }
 
-    function getbalance() public onlyOwner view returns(uint256)
-    {
+    function distributeFee(
+        address payable _recipient,
+        uint256 _amount
+    ) public onlyOwner {
+        require(address(this).balance >= _amount, "Insufficient balance");
+        _recipient.transfer(_amount);
+    }
+
+    function getbalance() public view onlyOwner returns (uint256) {
         return address(this).balance;
     }
+
     function pause() public onlyOwner {
         _pause();
     }
@@ -51,25 +90,36 @@ contract BNUGEvent is Initializable, ERC1155Upgradeable, OwnableUpgradeable, Pau
         _unpause();
     }
 
-    function mint(uint256 id, uint256 amount)
-        public
-        payable 
-    {
-        require(msg.value == mintingFee, "Error: Minting fee required");
+    function mint(uint8 id, uint256 amount) public payable {
+        if (id == 0) {
+            require(
+                msg.value == getFee(id) * amount,
+                "Error: Minting fee required"
+            );
+        }
         _mint(msg.sender, id, amount, "");
     }
 
-    function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
-        public
-        onlyOwner
-    {
+    function mintBatch(
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        bytes memory data
+    ) public onlyOwner {
         _mintBatch(to, ids, amounts, data);
     }
 
-    function _beforeTokenTransfer(address operator, address from, address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
+    function _beforeTokenTransfer(
+        address operator,
+        address from,
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        bytes memory data
+    )
         internal
-        whenNotPaused
         override(ERC1155Upgradeable, ERC1155SupplyUpgradeable)
+        whenNotPaused
     {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
     }

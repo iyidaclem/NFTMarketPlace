@@ -6,7 +6,7 @@ import { useWeb3Modal } from '@web3modal/react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getAccount, fetchBalance } from '@wagmi/core';
 import { useContract, useProvider, useSigner } from 'wagmi';
-import { MarketAddress, MarketAddressABI, TokenAddress, TokenAddressABI, zeroAddress } from './constants';
+import { MarketAddress, MarketAddressABI, TokenAddress, TokenAddressABI, BNUGEventAddress, BNUGEventAddressABI, zeroAddress } from './constants';
 import { imagePaths } from '../images';
 
 export const NFTContext = React.createContext();
@@ -30,7 +30,18 @@ export const NFTProvider = ({ children }) => {
     signerOrProvider: signer || provider,
   });
 
-  const tokenContract = useContract({ address: TokenAddress, abi: TokenAddressABI, signerOrProvider: provider });
+  const tokenContract = useContract({
+    address: TokenAddress,
+    abi: TokenAddressABI,
+    signerOrProvider: signer || provider
+  });
+
+  const eventContract = useContract({
+    address: BNUGEventAddress,
+    abi: BNUGEventAddressABI,
+    signerOrProvider: signer || provider
+  });
+
   const { open } = useWeb3Modal();
 
   const fetchNFTs = async () => {
@@ -171,12 +182,57 @@ export const NFTProvider = ({ children }) => {
     }
   };
 
+
+  // BNUG EVENT TICKET FUNCTIONS
+
+  const mintTicket = async (id, qty) => {
+    setIsLoadingNFT(true)
+  const mintPrice =  await eventContract.getFee(id).then(e => e * qty)
+  try {
+    await eventContract.mint(id, qty, {value: mintPrice.toString()})
+  } catch (error) {
+    throw "Failed"
+  }
+  finally   
+  {
+    setIsLoadingNFT(false)
+
+  }
+  }
+
+  const getFee = async (id) =>
+  {
+    
+  return  await eventContract.getFee(id).then(e => ethers.utils.formatEther(e));
+  
+  }
+
   useEffect(() => {
     checkIfWalletIsConnect();
   }, []);
-
   return (
-    <NFTContext.Provider value={{ nftCurrency, buyNft, createSale, fetchNFTs, fetchMyNFTsOrCreatedNFTs, currentAccount, isLoadingNFT, imagePaths, appName, userData, userReward, getUser, celoBal, bnugBal, creators, getBalances, signer }}>
+    <NFTContext.Provider value={
+      {
+        nftCurrency,
+        buyNft,
+        createSale,
+        fetchNFTs,
+        fetchMyNFTsOrCreatedNFTs,
+        currentAccount,
+        isLoadingNFT,
+        imagePaths,
+        appName,
+        userData,
+        userReward,
+        getUser,
+        celoBal,
+        bnugBal,
+        creators,
+        getBalances,
+        signer,
+        mintTicket,
+        getFee
+      }}>
       {children}
     </NFTContext.Provider>
   );

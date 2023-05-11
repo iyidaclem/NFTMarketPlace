@@ -1,4 +1,10 @@
+
+const fs = require('fs');
+
 const isProd = process.env.NODE_ENV === 'production';
+const event_address = fs.readFileSync(process.env.MODE === 'prod'  ? 'deployed_event_address' : 'dev_deployed_event_address').toString().trim();
+const token_address = fs.readFileSync(process.env.MODE === 'prod'  ? 'deployed_token_address' : 'dev_deployed_token_address').toString().trim();
+const nft_address = fs.readFileSync(process.env.MODE === 'prod'  ? 'deployed_nft_address' : 'dev_deployed_nft_address').toString().trim();
 module.exports = {
   eslint: {
     // Warning: This allows production builds to successfully complete even if
@@ -24,5 +30,9 @@ module.exports = {
     NEXT_PUBLIC_MAILCHIMP_URL: process.env.NEXT_PUBLIC_MAILCHIMP_URL,
     NEXT_PUBLIC_w3modalProjectId: process.env.NEXT_PUBLIC_w3modalProjectId,
     NEXT_PUBLIC_OPENAI_API_KEY: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+    NEXT_NODE_ENV: isProd,
+    NEXT_EVENT_ADDRESS: event_address,
+    NEXT_TOKEN_ADDRESS: token_address,
+    NEXT_NFT_ADDRESS: nft_address
   },
 };

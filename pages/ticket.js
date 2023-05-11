@@ -1,50 +1,90 @@
-
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Image from 'next/image';
 import images from '../assets';
-import { Banner, Button } from '../components';
+import { Banner, Button, Loader } from '../components';
+import { NFTContext } from '../context/NFTContext';
+import Swal from 'sweetalert2'
+import { ethers } from 'ethers';
 
-const EventTicket = () => {  
+const EventTicket = () => {
 
   const [qty, setQty] = useState(1)
   const [isMinting, setIsMinting] = useState(false)
   const [id, setId] = useState(0)
   const [price, setPrice] = useState(0)
+  const { mintTicket, isLoadingNFT, getFee } = useContext(NFTContext)
+  const [isLoading, setIsLoading] = useState(false)
+  const [fees, setFees] = useState([0,0,0])
 
-  function changeQty(e)
-  {
+  function changeQty(e) {
     setQty(e.target.value)
   }
 
-return <div className="flex flex-col justify-center p-5 ">
- 
- {
-  isMinting && <div className='w-full h-full fixed  top-0 flex flex-col justify-center  content-center z-50'>
-  <div className='bg-nft-dark w-full h-full opacity-25'></div>
-  <div className='fixed  w-1/4 md:w-4/5 h-auto left-100 self-center bg-white rounded-lg p-5 text-nft-dark'>
-    <div className='text-right cursor-pointer' onClick={() => setIsMinting(false)}>
-      <span>X</span>
-    </div>
-    <h1 className='text-nft-dark text-3xl'>Mint {id == 0 ? "GENERAL": id == 1 ? "VIP": "DEVS"} ticket</h1> <br />
-    <input type='range' value={qty} min={1} max={10} className='w-full' onChange={changeQty} />
-    <div className='w-full flex flex-row justify-between'>
-      <span>1</span>
-      <span>10</span>
-    </div>
-    <div className='text-center'>
-      <ul>
-        <li>Qty: {qty}</li>
-        <li>Token Id: {id}</li>
-        <li>Price: {price} celo</li>
-      </ul>
-    </div>
-    <br></br>
-   <div className='text-center'>
-   <Button btnName={`Mint for ${price * qty} celo`} btnType={"primary"} classStyles={"rounded-full"} />
-   </div>
-  </div>
-</div>
- }
+
+  async function mint() {
+    try {
+      await mintTicket(id, qty)
+
+      Swal.fire(
+        {
+          title: "Success",
+          text: "Minted Successfully",
+          icon: "success",
+          confirmButtonText: "Close"
+        }
+      )
+    }
+    catch (error) {
+      Swal.fire({
+        title: 'Error!',
+        text: "Ops! Something went wrong",
+        icon: 'error',
+        confirmButtonText: 'Close'
+      })
+    }
+    finally {
+      setIsMinting(false);
+    }
+  }
+
+  useState(async () => {
+      const gen = await getFee(0)
+      const vip = await getFee(1)
+      const devs = await getFee(2)
+
+      setFees([gen, vip, devs])
+  }, [])
+
+  return <div className="flex flex-col justify-center p-5 ">
+
+    {
+
+      isMinting && <div className='w-full h-full fixed  top-0 flex flex-col justify-center  content-center z-50'>
+        <div className='bg-nft-dark w-full h-full opacity-25'></div>
+        <div className='fixed  w-1/4 md:w-4/5 h-auto left-100 self-center bg-white rounded-lg p-5 text-nft-dark'>
+          <div className='text-right cursor-pointer' onClick={() => setIsMinting(false)}>
+            <span>X</span>
+          </div>
+          <h1 className='text-nft-dark text-3xl'>Mint {id == 0 ? "GENERAL" : id == 1 ? "VIP" : "DEVS"} ticket</h1> <br />
+          <input type='range' value={qty} min={1} max={10} className='w-full' onChange={changeQty} />
+          <div className='w-full flex flex-row justify-between'>
+            <span>1</span>
+            <span>10</span>
+          </div>
+          <div className='text-center'>
+            <ul>
+              <li>Qty: {qty}</li>
+              <li>Token Id: {id}</li>
+              <li>Price: {price} celo</li>
+            </ul>
+          </div>
+          <br></br>
+          <div className='text-center'>
+            {isLoadingNFT ? <Loader /> : <Button btnName={`Mint for ${price * qty} celo`} btnType={"primary"} classStyles={"rounded-full"} handleClick={() => mint()} />}
+          </div>
+        </div>
+      </div>
+    }
     <Banner
       name={(<>
         <h1>Decentralized Intelligence </h1>
@@ -65,39 +105,25 @@ return <div className="flex flex-col justify-center p-5 ">
           <div className='flex flex-row justify-center text-nft-dark dark:text-white'>GENERAL</div>
           <div className='flex flex-row justify-center m-3'>
 
-            <Button btnType={"outline"} btnName="$0.0" classStyles={"rounded-full text-nft-dark dark:text-white w-2/4"} />
+            <Button btnType={"outline"} btnName={`${fees[0]} CELO`} classStyles={"rounded-full text-nft-dark dark:text-white w-2/4"} />
           </div>
           <ul>
-            <li className="mt-3 text-nft-dark dark:text-white flex flex-row w-full border-b justify-between">
+            {[
+              "access to holders to All the Conference Session",
+              "Panel sessions and Exhibition area"
+            ].map(e => <li className="mt-3 text-nft-dark dark:text-white flex flex-row w-full border-b justify-between">
               <span>
-                Access to the event center
+                {e}
               </span>
               <span>
                 <Image src={images.tick} width={30} height={30} />
               </span>
               <hr />
-            </li>
-            <li className="mt-3 text-nft-dark dark:text-white flex flex-row w-full border-b justify-between">
-              <span>
-                Access to the event center
-              </span>
-              <span>
-                <Image src={images.tick} width={30} height={30} />
-              </span>
-              <hr />
-            </li>
-            <li className="mt-3 text-nft-dark dark:text-white flex flex-row w-full border-b justify-between">
-              <span>
-                Access to the event center
-              </span>
-              <span>
-                <Image src={images.tick} width={30} height={30} />
-              </span>
-              <hr />
-            </li>
+            </li>)}
+
           </ul>
           <div className='flex flex-row justify-center'> <br />
-            <Button btnType={"primary"} btnName="Mint Ticket" handleClick={() => {setIsMinting(true), setId(0), setPrice(0)}} classStyles={"w-3/4  mt-5 m-4"} />
+            <Button btnType={"primary"} btnName="Mint Ticket" handleClick={() => { setIsMinting(true), setId(0), setPrice(fees[0]) }} classStyles={"w-3/4  mt-5 m-4"} />
           </div>
         </div>
         <div className='w-1/4 md:w-full   flex flex-col justify-center border bg-white dark:bg-nft-dark rounded-lg  bg p-5 font-poppins drop-shadow-xl mb-3'>
@@ -108,39 +134,25 @@ return <div className="flex flex-col justify-center p-5 ">
           <div className='flex flex-row justify-center text-nft-dark dark:text-white'>VIP</div>
           <div className='flex flex-row justify-center m-3'>
 
-            <Button btnType={"outline"} btnName="$0.0" classStyles={"rounded-full text-nft-dark dark:text-white w-2/4"} />
+            <Button btnType={"outline"} btnName={`${fees[1]} CELO`} classStyles={"rounded-full text-nft-dark dark:text-white w-2/4"} />
           </div>
           <ul>
-            <li className="mt-3 text-nft-dark dark:text-white flex flex-row w-full border-b justify-between">
+            {[
+              "Access to holders to All the Conference Session",
+              "Panel sessions and Exhibition area",
+              "Access to exclusive dinner and networking evening"
+            ].map(e => <li className="mt-3 text-nft-dark dark:text-white flex flex-row w-full border-b justify-between">
               <span>
-                Access to the event center
+                {e}
               </span>
               <span>
                 <Image src={images.tick} width={30} height={30} />
               </span>
               <hr />
-            </li>
-            <li className="mt-3 text-nft-dark dark:text-white flex flex-row w-full border-b justify-between">
-              <span>
-                Access to the event center
-              </span>
-              <span>
-                <Image src={images.tick} width={30} height={30} />
-              </span>
-              <hr />
-            </li>
-            <li className="mt-3 text-nft-dark dark:text-white flex flex-row w-full border-b justify-between">
-              <span>
-                Access to the event center
-              </span>
-              <span>
-                <Image src={images.tick} width={30} height={30} />
-              </span>
-              <hr />
-            </li>
+            </li>)}
           </ul>
           <div className='flex flex-row justify-center'> <br />
-            <Button btnType={"primary"} btnName="Mint Ticket" handleClick={() => {setIsMinting(true), setId(1), setPrice(0.5)}} classStyles={"w-3/4  mt-5 m-4"} />
+            <Button btnType={"primary"} btnName="Mint Ticket" handleClick={() => { setIsMinting(true), setId(1), setPrice(fees[1]) }} classStyles={"w-3/4  mt-5 m-4"} />
           </div>
         </div>
         <div className='w-1/4 md:w-full   flex flex-col justify-center border bg-white dark:bg-nft-dark rounded-lg  bg p-5 font-poppins drop-shadow-xl mb-3'>
@@ -151,39 +163,25 @@ return <div className="flex flex-col justify-center p-5 ">
           <div className='flex flex-row justify-center text-nft-dark dark:text-white'>DEVS</div>
           <div className='flex flex-row justify-center m-3'>
 
-            <Button btnType={"outline"} btnName="$0.0" classStyles={"rounded-full text-nft-dark dark:text-white w-2/4"} />
+            <Button btnType={"outline"} btnName={`${fees[2]} CELO`} classStyles={"rounded-full text-1xl text-nft-dark dark:text-white w-2/4"} />
           </div>
           <ul>
-            <li className="mt-3 text-nft-dark dark:text-white flex flex-row w-full border-b justify-between">
+            {[
+              "Web3 Developer Workshop",
+              "AI Prompt Engineering Workshop",
+              "Build with CELO Workshop"
+            ].map(e => <li className="mt-3 text-nft-dark dark:text-white flex flex-row w-full border-b justify-between">
               <span>
-                Access to the event center
+                {e}
               </span>
               <span>
                 <Image src={images.tick} width={30} height={30} />
               </span>
               <hr />
-            </li>
-            <li className="mt-3 text-nft-dark dark:text-white flex flex-row w-full border-b justify-between">
-              <span>
-                Access to the event center
-              </span>
-              <span>
-                <Image src={images.tick} width={30} height={30} />
-              </span>
-              <hr />
-            </li>
-            <li className="mt-3 text-nft-dark dark:text-white flex flex-row w-full border-b justify-between">
-              <span>
-                Access to the event center
-              </span>
-              <span>
-                <Image src={images.tick} width={30} height={30} />
-              </span>
-              <hr />
-            </li>
+            </li>)}
           </ul>
           <div className='flex flex-row justify-center'> <br />
-            <Button btnType={"primary"} btnName="Mint Ticket" handleClick={() => {setIsMinting(true), setId(2), setPrice(1)}} classStyles={"w-3/4  mt-5 m-4"} />
+            <Button btnType={"primary"} btnName="Mint Ticket" handleClick={() => { setIsMinting(true), setId(2), setPrice(fees[2]) }} classStyles={"w-3/4  mt-5 m-4"} />
           </div>
         </div>
       </div>

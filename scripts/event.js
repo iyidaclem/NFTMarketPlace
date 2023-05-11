@@ -1,6 +1,5 @@
 const { ethers, upgrades } = require('hardhat');
 const fs = require('fs');
-
 async function main() {
   const BNUGEvent = await ethers.getContractFactory('BNUGEvent');
   const bNUGEvent = await upgrades.deployProxy(BNUGEvent, [], {
@@ -9,7 +8,8 @@ async function main() {
   await bNUGEvent.deployed();
 
   console.log('Event deployed to:', bNUGEvent.address);
-  fs.writeFileSync('deployed_event_address', `${bNUGEvent.address}`, { encoding: 'utf-8' });
+  fs.writeFileSync(process.env.MODE === 'prod' ? 'deployed_event_address' : 'dev_deployed_event_address', `${bNUGEvent.address}`, { encoding: 'utf-8' });
+
 }
 
 main()

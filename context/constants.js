@@ -1,10 +1,18 @@
 import marketAbi from './NFTMarketplace.json';
 import TokenAbi from './BNUGToken.json';
+import BNUGEventABI from './BNUGEvent.json';
 
 // export const MarketAddress = '0x6597740fDe132DC63f1c098b92A10FBCCD7437d4';
-
-export const MarketAddress = '0xFe768f240d7fd8b009186E834Bf1ac023ce2EBeE';
+export const MarketAddress =  process.env.NEXT_NFT_ADDRESS
 export const MarketAddressABI = marketAbi.abi;
-export const TokenAddress = '0xD206Ca7c14125Ebeaf40eceF527980BaFf36600F';
+
+
+export const TokenAddress =  process.env.NEXT_TOKEN_ADDRESS
 export const TokenAddressABI = TokenAbi.abi;
+
+
+export const BNUGEventAddress =  process.env.NEXT_EVENT_ADDRESS
+export const BNUGEventAddressABI = BNUGEventABI.abi;
+
+
 export const zeroAddress = '0x0000000000000000000000000000000000000000';
