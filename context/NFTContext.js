@@ -232,7 +232,9 @@ console.log(localStorage.getItem("isLive") == "live" ? MarketAddress : TESTMarke
         getBalances,
         signer,
         mintTicket,
-        getFee
+        getFee,
+        BNUGEventAddress,
+        TESTBNUGEventAddress
       }}>
       {children}
     </NFTContext.Provider>

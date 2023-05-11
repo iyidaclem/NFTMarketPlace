@@ -49,7 +49,6 @@ const Marketplace = ({ Component, pageProps }) => {
             <ThemeProvider attribute="class">
               <div className="dark:bg-nft-dark bg-white min-h-screen">
                 <Navbar />
-                <div class="w-full text-slate-500 text-white bg-slate-50">Testnet!</div>
                 <div className="pt-65">
                   <Component {...pageProps} />
                 </div>

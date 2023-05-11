@@ -12,9 +12,11 @@ const EventTicket = () => {
   const [isMinting, setIsMinting] = useState(false)
   const [id, setId] = useState(0)
   const [price, setPrice] = useState(0)
-  const { mintTicket, isLoadingNFT, getFee } = useContext(NFTContext)
+  const { mintTicket, isLoadingNFT, getFee, BNUGEventAddress, TESTBNUGEventAddress } = useContext(NFTContext)
   const [isLoading, setIsLoading] = useState(false)
   const [fees, setFees] = useState([0,0,0])
+  const [copied, setCopied] = useState(false)
+  const [contractAddress, setContractAddress] = useState("0x0")
 
   function changeQty(e) {
     setQty(e.target.value)
@@ -51,7 +53,7 @@ const EventTicket = () => {
       const gen = await getFee(0)
       const vip = await getFee(1)
       const devs = await getFee(2)
-
+      setContractAddress(localStorage.getItem("isLive") == "live" || false ? BNUGEventAddress : TESTBNUGEventAddress)
       setFees([gen, vip, devs])
   }, [])
 
@@ -102,7 +104,7 @@ const EventTicket = () => {
             <Image src={images.general} width={50} height={50} className='rounded-full' />
           </div>
 
-          <div className='flex flex-row justify-center text-nft-dark dark:text-white'>GENERAL</div>
+          <div className='flex flex-row justify-center text-nft-dark dark:text-white'>GENERAL #0</div>
           <div className='flex flex-row justify-center m-3'>
 
             <Button btnType={"outline"} btnName={`${fees[0]} CELO`} classStyles={"rounded-full text-nft-dark dark:text-white w-2/4"} />
@@ -131,7 +133,7 @@ const EventTicket = () => {
             <Image src={images.vip} width={50} height={50} className='rounded-full' />
           </div>
 
-          <div className='flex flex-row justify-center text-nft-dark dark:text-white'>VIP</div>
+          <div className='flex flex-row justify-center text-nft-dark dark:text-white'>VIP #1</div>
           <div className='flex flex-row justify-center m-3'>
 
             <Button btnType={"outline"} btnName={`${fees[1]} CELO`} classStyles={"rounded-full text-nft-dark dark:text-white w-2/4"} />
@@ -160,7 +162,7 @@ const EventTicket = () => {
             <Image src={images.devs} width={50} height={50} className='rounded-full' />
           </div>
 
-          <div className='flex flex-row justify-center text-nft-dark dark:text-white'>DEVS</div>
+          <div className='flex flex-row justify-center text-nft-dark dark:text-white'>DEVS #2</div>
           <div className='flex flex-row justify-center m-3'>
 
             <Button btnType={"outline"} btnName={`${fees[2]} CELO`} classStyles={"rounded-full text-1xl text-nft-dark dark:text-white w-2/4"} />
@@ -186,6 +188,22 @@ const EventTicket = () => {
         </div>
       </div>
     </div>
+   <div className='flex flex-column justify-center'>
+    <h1 className='mr-5 dark:text-white text-black font-poppins font-semibold text-white rounded-md mt-5'>Contract Address:</h1> 
+   
+   <br /> <br></br>
+                <button
+                  type="button"
+                  className="nft-gradient h-full text-sm minlg:text-lg py-3 px-6 minlg:py-4 minlg:px-8 font-poppins font-semibold text-white rounded-md mt-2"
+                  onClick={() => {
+                    navigator.clipboard.writeText(contractAddress);
+                    setCopied(!copied);
+                  }}
+                >
+                  {copied ? 'Copied' : `${ contractAddress.substring(0, 3)+ "..."+ contractAddress.substring(contractAddress.length - 4, contractAddress.length - 1) }`}
+                </button>
+             
+   </div>
   </div>
 };
 

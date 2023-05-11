@@ -39,7 +39,7 @@ module.exports = {
     NEXT_TOKEN_ADDRESS: token_address,
     NEXT_NFT_ADDRESS: nft_address,
     NEXT_TEST_EVENT_ADDRESS: test_event_address,
-    test_NEXT_TEST_TOKEN_ADDRESS: test_token_address,
+    NEXT_TEST_TOKEN_ADDRESS: test_token_address,
     NEXT_TEST_NFT_ADDRESS: test_nft_address
   },
 };
