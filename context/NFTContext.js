@@ -5,8 +5,8 @@ import { useWeb3Modal } from '@web3modal/react';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getAccount, fetchBalance } from '@wagmi/core';
-import { useContract, useProvider, useSigner } from 'wagmi';
-import { MarketAddress, MarketAddressABI, TokenAddress, TokenAddressABI, BNUGEventAddress, BNUGEventAddressABI, zeroAddress } from './constants';
+import { useContract, useProvider, useSigner, } from 'wagmi';
+import { MarketAddress, TESTMarketAddress, MarketAddressABI, TokenAddress, TESTTokenAddress, TokenAddressABI, BNUGEventAddress, TESTBNUGEventAddress, BNUGEventAddressABI, zeroAddress } from './constants';
 import { imagePaths } from '../images';
 
 export const NFTContext = React.createContext();
@@ -25,22 +25,23 @@ export const NFTProvider = ({ children }) => {
   const account = getAccount();
   const { data: signer } = useSigner();
   const contract = useContract({
-    address: MarketAddress,
+    address: localStorage.getItem("isLive") == "live" ? MarketAddress : TESTMarketAddress,
     abi: MarketAddressABI,
     signerOrProvider: signer || provider,
   });
 
   const tokenContract = useContract({
-    address: TokenAddress,
+    address: localStorage.getItem("isLive") == "live" ? TokenAddress : TESTTokenAddress,
     abi: TokenAddressABI,
     signerOrProvider: signer || provider
   });
 
   const eventContract = useContract({
-    address: BNUGEventAddress,
+    address: localStorage.getItem("isLive") == "live" ? BNUGEventAddress : TESTBNUGEventAddress,
     abi: BNUGEventAddressABI,
     signerOrProvider: signer || provider
   });
+console.log(localStorage.getItem("isLive") == "live" ? MarketAddress : TESTMarketAddress)
 
   const { open } = useWeb3Modal();
 

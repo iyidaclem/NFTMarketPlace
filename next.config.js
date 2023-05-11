@@ -2,13 +2,17 @@
 const fs = require('fs');
 
 const isProd = process.env.NODE_ENV === 'production';
-const event_address = fs.readFileSync(process.env.MODE === 'prod'  ? 'deployed_event_address' : 'dev_deployed_event_address').toString().trim();
-const token_address = fs.readFileSync(process.env.MODE === 'prod'  ? 'deployed_token_address' : 'dev_deployed_token_address').toString().trim();
-const nft_address = fs.readFileSync(process.env.MODE === 'prod'  ? 'deployed_nft_address' : 'dev_deployed_nft_address').toString().trim();
+
+const event_address = fs.readFileSync('deployed_event_address').toString().trim();
+const token_address = fs.readFileSync('deployed_token_address').toString().trim();
+const nft_address = fs.readFileSync('deployed_nft_address').toString().trim();
+
+const test_event_address = fs.readFileSync('dev_deployed_event_address').toString().trim();
+const test_token_address = fs.readFileSync('dev_deployed_token_address').toString().trim();
+const test_nft_address = fs.readFileSync('dev_deployed_nft_address').toString().trim();
+
 module.exports = {
   eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
   webpack5: true,
@@ -33,6 +37,9 @@ module.exports = {
     NEXT_NODE_ENV: isProd,
     NEXT_EVENT_ADDRESS: event_address,
     NEXT_TOKEN_ADDRESS: token_address,
-    NEXT_NFT_ADDRESS: nft_address
+    NEXT_NFT_ADDRESS: nft_address,
+    NEXT_TEST_EVENT_ADDRESS: test_event_address,
+    test_NEXT_TEST_TOKEN_ADDRESS: test_token_address,
+    NEXT_TEST_NFT_ADDRESS: test_nft_address
   },
 };
