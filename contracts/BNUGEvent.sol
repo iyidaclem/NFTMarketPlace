@@ -30,7 +30,7 @@ contract BNUGEvent is
 
     function initialize() public initializer {
         __ERC1155_init(
-            "https://ipfs.io/ipfs/QmS97jahBSjQJiRFgbzafAUBEfkzAr41ff3thgeDir1oy4"
+            "https://ipfs.io/ipfs/QmTowpwjPYHGV2p6LnUyu66d8B7AQe4zBhgNpPpeNPFNnQ/event_metadata/{id}.json"
         );
         __Ownable_init();
         __Pausable_init();
