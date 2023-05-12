@@ -200,7 +200,7 @@ const EventTicket = () => {
                     setCopied(!copied);
                   }}
                 >
-                  {copied ? 'Copied' : `${ contractAddress.substring(0, 3)+ "..."+ contractAddress.substring(contractAddress.length - 4, contractAddress.length - 1) }`}
+                  {copied ? 'Copied' : `${ contractAddress.substring(0, 3)+ "..."+ contractAddress.substring(contractAddress.length - 4, contractAddress.length) }`}
                 </button>
              
    </div>
