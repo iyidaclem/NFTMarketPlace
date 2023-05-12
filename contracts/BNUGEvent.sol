@@ -30,7 +30,7 @@ contract BNUGEvent is
 
     function initialize() public initializer {
         __ERC1155_init(
-            "https://ipfs.io/ipfs/QmTowpwjPYHGV2p6LnUyu66d8B7AQe4zBhgNpPpeNPFNnQ/event_metadata/{id}.json"
+            "https://ipfs.io/ipfs/QmPhCd92UR2EjeVeoHxkJRnf9g3UBkyPeoU2kfX9R1ApnS"
         );
         __Ownable_init();
         __Pausable_init();
@@ -39,7 +39,7 @@ contract BNUGEvent is
         vip_fee = 50 ether;
         devs_fee = 30 ether;
         name = "BNUGDAO EVENT";
-        symbol = "BNUGDAO EVENT";
+        symbol = "BNUGDAO";
     }
 
     function setURI(string memory newuri) public onlyOwner {
