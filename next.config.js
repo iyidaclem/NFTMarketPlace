@@ -2,7 +2,6 @@
 const fs = require('fs');
 
 const isProd = process.env.NODE_ENV === 'production';
-
 const event_address = fs.readFileSync('deployed_event_address').toString().trim();
 const token_address = fs.readFileSync('deployed_token_address').toString().trim();
 const nft_address = fs.readFileSync('deployed_nft_address').toString().trim();

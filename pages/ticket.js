@@ -14,7 +14,7 @@ const EventTicket = () => {
   const [price, setPrice] = useState(0)
   const { mintTicket, isLoadingNFT, getFee, BNUGEventAddress, TESTBNUGEventAddress } = useContext(NFTContext)
   const [isLoading, setIsLoading] = useState(false)
-  const [fees, setFees] = useState([0,0,0])
+  const [fees, setFees] = useState([0, 0, 0])
   const [copied, setCopied] = useState(false)
   const [contractAddress, setContractAddress] = useState("0x0")
 
@@ -50,11 +50,11 @@ const EventTicket = () => {
   }
 
   useState(async () => {
-      const gen = await getFee(0)
-      const vip = await getFee(1)
-      const devs = await getFee(2)
-      setContractAddress(localStorage.getItem("isLive") == "live" || false ? BNUGEventAddress : TESTBNUGEventAddress)
-      setFees([gen, vip, devs])
+    const gen = await getFee(0)
+    const vip = await getFee(1)
+    const devs = await getFee(2)
+    setContractAddress(localStorage.getItem("isLive") == "live" || false ? BNUGEventAddress : TESTBNUGEventAddress)
+    setFees([gen, vip, devs])
   }, [])
 
   return <div className="flex flex-col justify-center p-5 ">
@@ -111,8 +111,9 @@ const EventTicket = () => {
           </div>
           <ul>
             {[
-              "access to holders to All the Conference Session",
-              "Panel sessions and Exhibition area"
+              "Access to the conference session",
+              "Access to panel sessions",
+              "Access to exhibition areas"
             ].map(e => <li className="mt-3 text-nft-dark dark:text-white flex flex-row w-full border-b justify-between">
               <span>
                 {e}
@@ -140,9 +141,10 @@ const EventTicket = () => {
           </div>
           <ul>
             {[
-              "Access to holders to All the Conference Session",
-              "Panel sessions and Exhibition area",
-              "Access to exclusive dinner and networking evening"
+              "Access to all conference session",
+              "Access to panels and exhibition",
+              "Access to after-party/ dinner",
+              "Access to the business networking"
             ].map(e => <li className="mt-3 text-nft-dark dark:text-white flex flex-row w-full border-b justify-between">
               <span>
                 {e}
@@ -188,22 +190,22 @@ const EventTicket = () => {
         </div>
       </div>
     </div>
-   <div className='flex flex-column justify-center'>
-    <h1 className='mr-5 dark:text-white text-black font-poppins font-semibold text-white rounded-md mt-5'>Contract Address:</h1> 
-   
-   <br /> <br></br>
-                <button
-                  type="button"
-                  className="nft-gradient h-full text-sm minlg:text-lg py-3 px-6 minlg:py-4 minlg:px-8 font-poppins font-semibold text-white rounded-md mt-2"
-                  onClick={() => {
-                    navigator.clipboard.writeText(contractAddress);
-                    setCopied(!copied);
-                  }}
-                >
-                  {copied ? 'Copied' : `${ contractAddress.substring(0, 3)+ "..."+ contractAddress.substring(contractAddress.length - 4, contractAddress.length) }`}
-                </button>
-             
-   </div>
+    <div className='flex flex-column justify-center'>
+      <h1 className='mr-5 dark:text-white text-black font-poppins font-semibold text-white rounded-md mt-5'>Copy Contract Address to import your NFT:</h1>
+
+      <br /> <br></br>
+      <button
+        type="button"
+        className="nft-gradient h-full text-sm minlg:text-lg py-3 px-6 minlg:py-4 minlg:px-8 font-poppins font-semibold text-white rounded-md mt-2"
+        onClick={() => {
+          navigator.clipboard.writeText(contractAddress);
+          setCopied(!copied);
+        }}
+      >
+        {copied ? 'Copied' : `${contractAddress.substring(0, 3) + "..." + contractAddress.substring(contractAddress.length - 4, contractAddress.length)}`}
+      </button>
+
+    </div>
   </div>
 };
 

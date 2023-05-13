@@ -36,7 +36,7 @@ const Footer = () => {
 
         <div className="flex-1 flexBetweenStart flex-wrap ml-10 md:ml-0 md:mt-8 cursor-pointer">
           <FooterLinks heading={appName} items={[['Explore', '/'], ['How it Works', '/how-it-works'], ['Contact Us', '/contact-us'], ['About Us', '/about'], ['Swap Token', '/swap-token'], ['Event Ticket', '/ticket']]} />
-          <FooterLinks heading="Support" items={[['Follow us on Twitter', 'https://twitter.com/BlockchainNG'], ['Follow us on Instagram', 'https://www.instagram.com/blockchainnigeria/'], ['Follow us on Facebook', 'https://www.facebook.com/BlockchainNG'], ['Join us on Telegram', 'https://t.me/+T7VwGW-Ftwh60LhF'], ['Join BNUGDAO', ' https://snapshot.org/#/bnugdao.eth'], ['Drop us a mail', 'info@blockchainnigeria.group'],['BNUG Events', 'https://events.blockchainnigeria.group/']]} extraClasses="ml-4" />
+          <FooterLinks heading="Support" items={[['Follow us on Twitter', 'https://twitter.com/BlockchainNG'], ['Follow us on Instagram', 'https://www.instagram.com/blockchainnigeria/'], ['Follow us on Facebook', 'https://www.facebook.com/BlockchainNG'], ['Join us on Telegram', 'https://t.me/+T7VwGW-Ftwh60LhF'], ['Join BNUGDAO', ' https://snapshot.org/#/bnugdao.eth'], ['Drop us a mail', 'mailto:info@blockchainnigeria.group'],['BNUG Events', 'https://events.blockchainnigeria.group/']]} extraClasses="ml-4" />
         </div>
       </div>
 
