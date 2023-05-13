@@ -2,7 +2,7 @@ const { ethers, upgrades } = require('hardhat');
 const fs = require('fs');
 async function main() {
   const BNUGEvent = await ethers.getContractFactory('BNUGEvent');
-  const bNUGEvent = await upgrades.deployProxy(BNUGEvent, ["https://ipfs.io/ipfs/QmS4eVEtY1Av8hWnPmuB4tyRZMKvGoffTg8BEZgLLxCT8y/event_metadata"], {
+  const bNUGEvent = await upgrades.deployProxy(BNUGEvent, ["https://ipfs.io/ipfs/QmNYUJE1kyEK9Gcowp5vvGEUYVuXnb5gQiuNmdENWGmtj5/event_metadata"], {
     initializer: 'initialize',
   });
   await bNUGEvent.deployed();

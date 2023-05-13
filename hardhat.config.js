@@ -3,8 +3,9 @@ const fs = require('fs');
 require('hardhat-celo');
 require('@openzeppelin/hardhat-upgrades');
 require('@nomicfoundation/hardhat-chai-matchers');
+require('dotenv').config();
 
-const mnemonic = fs.readFileSync('.mnemonic').toString().trim();
+const mnemonic = fs.readFileSync(process.env.MODE == "prod" ? '.mnemonic' : ".mnemonic_dev").toString().trim();
 const celoscanApiKey = fs.readFileSync('.celoscan_api_key').toString().trim();
 
 module.exports = {
