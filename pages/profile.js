@@ -14,6 +14,7 @@ const Profile = () => {
     getUser,
     celoBal,
     bnugBal,
+    TokenAddress
   } = useContext(NFTContext);
   const [nfts, setNfts] = useState([]);
   const [nftsCopy, setNftsCopy] = useState([]);
@@ -97,6 +98,22 @@ const Profile = () => {
             <p className="">{shortenAddress(address)}</p>
             <p>{bnugBal.toFixed(2)} BNUG</p>
             <p>{celoBal.toFixed(2)} CELO</p>
+            <div className='flex flex-column justify-center'>
+      <h1 className='mr-5 dark:text-white text-black font-poppins font-semibold text-white rounded-md mt-5'>Copy BNUG TOKEN Contract Address:</h1>
+
+      <br /> <br></br>
+      <button
+        type="button"
+        className="nft-gradient h-full text-sm minlg:text-lg py-3 px-6 minlg:py-4 minlg:px-8 font-poppins font-semibold text-white rounded-md mt-2"
+        onClick={() => {
+          navigator.clipboard.writeText(TokenAddress);
+          setCopied(!copied);
+        }}
+      >
+        {copied ? 'Copied' : `${TokenAddress.substring(0, 3) + "..." + TokenAddress.substring(TokenAddress.length - 4, TokenAddress.length)}`}
+      </button>
+
+    </div>
           </div>
           <p className="font-poppins mt-5">Referral Link</p>
           <div className="flex flex-col mt-3">

@@ -173,7 +173,8 @@ const EventTicket = () => {
             {[
               "Web3 Developer Workshop",
               "AI Prompt Engineering Workshop",
-              "Build with CELO Workshop"
+              "Build with CELO Workshop",
+              "Access to General conference session"
             ].map(e => <li className="mt-3 text-nft-dark dark:text-white flex flex-row w-full border-b justify-between">
               <span>
                 {e}

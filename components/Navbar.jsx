@@ -127,7 +127,7 @@ const Navbar = () => {
   const { appName, imagePaths, getUser, currentAccount } = useContext(NFTContext);
   const [userData, setuserData] = useState(null);
   const { isConnected } = useAccount();
-  const [isLive, setIsLive] = useState(false)
+  const [isLive, setIsLive] = useState(true)
   const { disconnect } = useDisconnect()
   const { chain } = useNetwork()
   const { chains, error, isLoading, pendingChainId, switchNetwork } =
