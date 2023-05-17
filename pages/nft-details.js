@@ -181,7 +181,7 @@ const AssetDetails = () => {
               <div className="relative w-52 h-52">
                 {!nft.image.includes('https://oaidalleapiprodscus') && <Image src={nft.image || images[`nft${nft.i}`]} objectFit="cover" layout="fill" />}
               </div>
-              <p className="font-poppins dark:text-white text-nft-black-1 text-sm minlg:text-xl font-normal mt-10"> You successfully purchased <span className="font-semibold">{nft.name}</span> from <span className="font-semibold">{shortenAddress(nft.seller)}</span>.</p>
+              <p className="font-poppins dark:text-white text-nft-black-1 text-sm minlg:text-xl font-normal mt-10"> You successfully purchased! Check your profile to view it <span className="font-semibold">{nft.name}</span> from <span className="font-semibold">{shortenAddress(nft.seller)}</span>.</p>
             </div>
           )}
           footer={(
@@ -190,7 +190,7 @@ const AssetDetails = () => {
                 btnName="Check it out"
                 btnType="primary"
                 classStyles="sm:mr-0 sm:mb-5 rounded-xl"
-                handleClick={() => { location.href = "profile" }}
+                handleClick={() => { location.href = "/" }}
               />
             </div>
           )}
