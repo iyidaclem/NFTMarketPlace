@@ -132,7 +132,9 @@ const CreateItem = () => {
                 </div>
               </div>
             )
-              : <Generate uploadToInfura={uploadToInfura} /> }
+              :
+              <Generate uploadToInfura={uploadToInfura} /> 
+              }
             {
               uploading
               && (

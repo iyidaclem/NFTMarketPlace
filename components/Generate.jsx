@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Loader } from '.';
+import AILoading from './AILoader';
 
 const Generate = ({ uploadToInfura }) => {
   const [prompt, setPrompt] = useState('');
@@ -56,7 +57,7 @@ const Generate = ({ uploadToInfura }) => {
   if (isLoading) {
     return (
       <div className="flexCenter" style={{ height: '51vh' }}>
-        <Loader />
+       <AILoading />
       </div>
     );
   }

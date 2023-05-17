@@ -16,6 +16,7 @@ import { NFTProvider } from '../context/NFTContext';
 import { Footer, Navbar } from '../components';
 import '../styles/globals.css';
 import '../styles/generate.css';
+import '../styles/robot.css';
 
 const projectId = process.env.NEXT_PUBLIC_w3modalProjectId;
 // 2. Configure wagmi client
