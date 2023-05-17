@@ -190,7 +190,7 @@ const AssetDetails = () => {
                 btnName="Check it out"
                 btnType="primary"
                 classStyles="sm:mr-0 sm:mb-5 rounded-xl"
-                handleClick={() => router.push('/profile')}
+                handleClick={() => { location.href = "profile" }}
               />
             </div>
           )}
