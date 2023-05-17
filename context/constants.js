@@ -1,4 +1,4 @@
-import marketAbi from './NFTMarketplace.json';
+import marketAbi from './NFTMarketplaceV2.json';
 import TokenAbi from './BNUGToken.json';
 import BNUGEventABI from './BNUGEvent.json';
 

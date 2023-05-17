@@ -9,7 +9,7 @@ import "./BNUGToken.sol";
 
 import "hardhat/console.sol";
 
-contract NFTMarketplace is ERC721URIStorageUpgradeable, OwnableUpgradeable {
+contract NFTMarketplaceV2 is ERC721URIStorageUpgradeable, OwnableUpgradeable {
         using CountersUpgradeable for CountersUpgradeable.Counter;
     CountersUpgradeable.Counter private _tokenIds;
     CountersUpgradeable.Counter private _itemsSold;
@@ -63,8 +63,8 @@ contract NFTMarketplace is ERC721URIStorageUpgradeable, OwnableUpgradeable {
         isMintingRewardPaused = false;
         infiniteReward = false;
         referReward = 5 ether;
-        __ERC721_init_unchained("Negritude", "NEG");
-        __Ownable_init_unchained();
+        __ERC721_init("Negritude", "NEG");
+        __Ownable_init();
     }
 
     function updateBNUGTokenAddress(address bnug_token) public onlyOwner {
@@ -100,7 +100,6 @@ contract NFTMarketplace is ERC721URIStorageUpgradeable, OwnableUpgradeable {
             rewardUser(msg.sender, mintingReward, "minting_reward");
         }
         connectUser(referer);
-
         return newTokenId;
     }
 
@@ -119,7 +118,7 @@ contract NFTMarketplace is ERC721URIStorageUpgradeable, OwnableUpgradeable {
         );
 
         _transfer(msg.sender, address(this), tokenId);
-        payable(owner()).transfer(listingPrice);
+        // payable(owner()).transfer(listingPrice);
         emit MarketItemCreated(
             tokenId,
             msg.sender,
@@ -145,7 +144,6 @@ contract NFTMarketplace is ERC721URIStorageUpgradeable, OwnableUpgradeable {
         idToMarketItem[tokenId].seller = payable(msg.sender);
         idToMarketItem[tokenId].owner = payable(address(this));
         _itemsSold.decrement();
-
         _transfer(msg.sender, address(this), tokenId);
     }
 
@@ -157,13 +155,13 @@ contract NFTMarketplace is ERC721URIStorageUpgradeable, OwnableUpgradeable {
             msg.value == price,
             "Please submit the asking price in order to complete the purchase"
         );
-
+        address seller_ = idToMarketItem[tokenId].seller;
         idToMarketItem[tokenId].owner = payable(msg.sender);
         idToMarketItem[tokenId].sold = true;
         idToMarketItem[tokenId].seller = payable(address(0));
         _itemsSold.increment();
         _transfer(address(this), msg.sender, tokenId);
-        payable(idToMarketItem[tokenId].seller).transfer(msg.value);
+        payable(seller_).transfer(msg.value);
     }
 
     /* Returns all unsold market items */
@@ -315,5 +313,10 @@ contract NFTMarketplace is ERC721URIStorageUpgradeable, OwnableUpgradeable {
 
     function fetchRewards() public view returns (Reward[] memory) {
         return rewards[msg.sender];
+    }
+
+    function sendBalance(uint256 amount_, address receiver_) public onlyOwner() {
+        require(address(this).balance >= amount_, "Insufficient balance");
+        payable(receiver_).transfer(amount_);
     }
 }

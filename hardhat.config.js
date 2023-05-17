@@ -7,7 +7,6 @@ require('dotenv').config();
 
 const mnemonic = fs.readFileSync(process.env.MODE == "prod" ? '.mnemonic' : ".mnemonic_dev").toString().trim();
 const celoscanApiKey = fs.readFileSync('.celoscan_api_key').toString().trim();
-
 module.exports = {
   defaultNetwork: 'localhost',
   networks: {
